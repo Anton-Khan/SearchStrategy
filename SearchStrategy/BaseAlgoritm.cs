@@ -8,6 +8,7 @@ namespace SearchStrategy
     {
         public abstract void Start(double min, double max, double e);
         public abstract void SetMainFunction(Func<double, double> function);
+        public abstract void ShowProcess();
 
     }
 }

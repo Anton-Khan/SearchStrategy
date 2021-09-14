@@ -11,9 +11,16 @@ namespace SearchStrategy
         static void Main(string[] args)
         {
             SearchAlgoritm a = new SearchAlgoritm(Min, Max, E, Function);
+            Console.WriteLine("Optimal Passive Search");
             a.SetAlgoritmType(Algoritms.Passive);
             a.Search();
-            
+            a.ShowProcess();
+            Console.WriteLine();
+            Console.WriteLine("\t\t\t\tDichotomy");
+            a.SetAlgoritmType(Algoritms.Dichotomy);
+            a.Search();
+            a.ShowProcess();
+
         }
 
         static double Function(double x)

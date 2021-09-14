@@ -43,5 +43,9 @@ namespace SearchStrategy
         {
             _algoritm.Start(_min, _max, _E);
         }
+        public void ShowProcess()
+        {
+            _algoritm.ShowProcess();
+        }
     }
 }
