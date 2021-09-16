@@ -10,23 +10,19 @@ namespace SearchStrategy
 
         static void Main(string[] args)
         {
-            SearchAlgoritm a = new SearchAlgoritm(Min, Max, E, Function);
-            Console.WriteLine("Optimal Passive Search");
-            a.SetAlgoritmType(Algoritms.Passive);
-            a.Search();
-            a.ShowProcess();
+            SearchAlgorithm algorithm = new SearchAlgorithm(Min, Max, E, Function);
+            algorithm.SetAlgoritmType(Algoritms.Passive);
+            algorithm.Search();
+            algorithm.ShowProcess();
             Console.WriteLine();
-            Console.WriteLine("\t\t\t\tDichotomy");
-            a.SetAlgoritmType(Algoritms.Dichotomy);
-            a.Search();
-            a.ShowProcess();
-
+            algorithm.SetAlgoritmType(Algoritms.Dichotomy);
+            algorithm.Search();
+            algorithm.ShowProcess();
         }
 
         static double Function(double x)
         {
             return (x * x) * Math.Sin(x) - 2;
         }
-        
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SearchStrategy
 {
@@ -12,27 +11,36 @@ namespace SearchStrategy
         private Func<double, double> Function;
         private int _N;
         private double _delta;
+        private double _max;
+        private double _min;
+        private double _e;
+
+        public OptimalPassiveSearch(ISearchProperties properties)
+        {
+            _max = properties.Max;
+            _min = properties.Min;
+            _e = properties.E;
+            Function = properties.Function;
+        }
 
         public override void SetMainFunction(Func<double, double> function)
         {
             Function = function;
         }
 
-        public override void Start(double min, double max, double e)
+        public override void Start()
         {
-            _N = CalculateN(min, max, e);
-            _delta = CalculateDelta(min, max);
-            double distance = DistanceBetweenX(min, max);
+            _N = CalculateN(_min, _max, _e);
+            _delta = CalculateDelta(_min, _max);
+            double distance = DistanceBetweenX(_min, _max);
             
             Ys = new List<double>();
             Xs = new List<double>();
-            for (double x = min; x < max; x+=distance)
+            for (double x = _min; x < _max; x+=distance)
             {
                 Xs.Add(x);
                 Ys.Add(Function(x));
-            }
-
-            
+            }  
         }
         private int CalculateN(double min, double max, double e)
         {
@@ -51,6 +59,7 @@ namespace SearchStrategy
         
         public override void ShowProcess()
         {
+            Console.WriteLine("Optimal  Passive  Search");
             Console.WriteLine($"|  N\t|   X   |  F(X)");
             Console.WriteLine($"|_______|_______|_______");
             for (int i = 0; i < Ys.Count; i++)
@@ -58,7 +67,7 @@ namespace SearchStrategy
                 Console.WriteLine($"| {(i+1)}\t| {Xs[i].ToString("F3")}\t|{Ys[i].ToString("F3")}");
             }
             Console.WriteLine($"|_______|_______|_______");
-            Console.WriteLine($"Min = {Ys.Min()} +- {_delta}");
+            Console.WriteLine($"Min:\nX = {Xs[Ys.IndexOf(Ys.Min())].ToString("F5")} +- {_delta}\nF(x) = {Ys.Min().ToString("F5")}");
         }
 
     }

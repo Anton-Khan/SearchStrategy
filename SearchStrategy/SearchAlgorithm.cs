@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace SearchStrategy
 {
@@ -8,20 +7,28 @@ namespace SearchStrategy
         Passive,
         Dichotomy
     }
-    class SearchAlgoritm
+    class SearchAlgorithm : ISearchProperties
     {
+        private BaseAlgoritm _algorithm;
+
         private double _min = 0;
         private double _max = 0;
         private double _E = 0;
         private Func<double, double> _func;
-        private BaseAlgoritm _algoritm;
+        private ISearchProperties _searchProperties;
 
-        public SearchAlgoritm(double min, double max, double e, Func<double, double> function)
+        public double Min => _min;
+        public double Max => _max;
+        public double E => _E;
+        public Func<double, double> Function => _func;
+
+        public SearchAlgorithm(double min, double max, double e, Func<double, double> function)
         {
             _min = min;
             _max = max;
             _E = e;
             _func = function;
+            _searchProperties = this;
         }
 
         public void SetAlgoritmType(Algoritms al)
@@ -29,23 +36,21 @@ namespace SearchStrategy
             switch (al)
             {
                 case Algoritms.Passive: 
-                    _algoritm = new OptimalPassiveSearch();
-                    _algoritm.SetMainFunction(_func);
+                    _algorithm = new OptimalPassiveSearch(_searchProperties);
                     break;
                 case Algoritms.Dichotomy:
-                    _algoritm = new Dichotomy();
-                    _algoritm.SetMainFunction(_func);
+                    _algorithm = new Dichotomy(_searchProperties);
                     break;
             }
         }
 
         public void Search()
         {
-            _algoritm.Start(_min, _max, _E);
+            _algorithm.Start();
         }
         public void ShowProcess()
         {
-            _algoritm.ShowProcess();
+            _algorithm.ShowProcess();
         }
     }
 }

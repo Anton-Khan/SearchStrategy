@@ -29,21 +29,27 @@ namespace SearchStrategy
         private double _delta;
         private double _max;
         private double _min;
+        private double _e;
         private List<SearchInfo> info;
         private Func<double, double> Function;
+        public Dichotomy(ISearchProperties properties)
+        {
+            _max = properties.Max;
+            _min = properties.Min;
+            _e = properties.E;
+            Function = properties.Function;
+        }
         public override void SetMainFunction(Func<double, double> function)
         {
             Function = function;
         }
 
-        public override void Start(double min, double max, double e)
+        public override void Start()
         {
             info = new List<SearchInfo>();
-            _max = max;
-            _min = min;
-            _delta = CalculateDelta(e);
+            _delta = CalculateDelta(_e);
 
-            while (_max - _min > e)
+            while (_max - _min > _e)
             {
                 var Xs = CalculateX();
                 info.Add(new SearchInfo(_min, _max, _max - _min, Xs.Item1, Xs.Item2, Function(Xs.Item1), Function(Xs.Item2)));
@@ -70,6 +76,7 @@ namespace SearchStrategy
         }
         public override void ShowProcess()
         {
+            Console.WriteLine("\t\t\t\tDichotomy");
             Console.WriteLine("|   N   ||  start |  end  |length ||  left | right | f(left) | f(right)");
             Console.WriteLine("|_______||________|_______|_______||_______|_______|_________|_________");
             for (int i = 0; i < info.Count; i++)
@@ -80,7 +87,7 @@ namespace SearchStrategy
                     $"{info[i].f_left.ToString("F3")}  |{info[i].f_right.ToString("F3")}");
             }
             Console.WriteLine("|_______||________|_______|_______||_______|_______|_________|_________");
-            Console.WriteLine($"Min = {Function((_max + _min) / 2)} +- {_delta}");
+            Console.WriteLine($"Min:\nX = {((_max + _min) / 2).ToString("F5")} +- {_delta.ToString("F3")}\nF(x) = {Function((_max + _min) / 2).ToString("F5")}");
         }
     }
 }
