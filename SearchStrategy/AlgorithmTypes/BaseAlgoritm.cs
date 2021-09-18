@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SearchStrategy
+namespace SearchStrategy.AlgorithmTypes
 {
     abstract class BaseAlgoritm
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SearchStrategy
+namespace SearchStrategy.AlgorithmTypes
 {
     class SearchInfo
     {

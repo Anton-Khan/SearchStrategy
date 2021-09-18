@@ -1,4 +1,5 @@
 ﻿using System;
+using SearchStrategy.AlgorithmTypes;
 
 namespace SearchStrategy
 {

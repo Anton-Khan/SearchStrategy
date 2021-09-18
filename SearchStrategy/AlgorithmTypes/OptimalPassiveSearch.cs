@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SearchStrategy
+namespace SearchStrategy.AlgorithmTypes
 {
     class OptimalPassiveSearch : BaseAlgoritm 
     {
