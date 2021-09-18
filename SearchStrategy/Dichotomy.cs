@@ -23,6 +23,20 @@ namespace SearchStrategy
             this.f_left = f_left;
             this.f_right = f_right;
         }
+
+        public string ToString(int i)
+        {
+            return $"| {(i + 1)}\t|| {min.ToString("F3")}  |" +
+                    $"{max.ToString("F3")}  |{length.ToString("F3")}  ||" +
+                    $"{left.ToString("F3")}  |{right.ToString("F3")}  |" +
+                    $"{f_left.ToString("F3")}  |{f_right.ToString("F3")}";
+        }
+        public string ToStringWithoutGeneratedPart(int i)
+        {
+            return $"| {(i + 1)}\t|| {min.ToString("F3")}  |" +
+                    $"{max.ToString("F3")}  |{length.ToString("F3")}  ||" +
+                    $"-------|-------|---------|--------";
+        }
     }
     class Dichotomy : BaseAlgoritm
     {
@@ -48,13 +62,14 @@ namespace SearchStrategy
         {
             info = new List<SearchInfo>();
             _delta = CalculateDelta(_e);
-
-            while (_max - _min > _e)
+            (double, double) Xs = (0,0);
+            while (_max - _min >= _e)
             {
-                var Xs = CalculateX();
+                Xs = CalculateX();
                 info.Add(new SearchInfo(_min, _max, _max - _min, Xs.Item1, Xs.Item2, Function(Xs.Item1), Function(Xs.Item2)));
-                LineExcluding(Xs);   
+                LineExcluding(Xs);
             }
+            info.Add(new SearchInfo(_min, _max, _max - _min, 0,0,0,0));
         }
 
         private void LineExcluding( (double, double) Xs)
@@ -79,13 +94,11 @@ namespace SearchStrategy
             Console.WriteLine("\t\t\t\tDichotomy");
             Console.WriteLine("|   N   ||  start |  end  |length ||  left | right | f(left) | f(right)");
             Console.WriteLine("|_______||________|_______|_______||_______|_______|_________|_________");
-            for (int i = 0; i < info.Count; i++)
+            for (int i = 0; i < info.Count-1; i++)
             {
-                Console.WriteLine($"| {(i + 1)}\t|| {info[i].min.ToString("F3")}  |" +
-                    $"{info[i].max.ToString("F3")}  |{info[i].length.ToString("F3")}  ||" +
-                    $"{info[i].left.ToString("F3")}  |{info[i].right.ToString("F3")}  |" +
-                    $"{info[i].f_left.ToString("F3")}  |{info[i].f_right.ToString("F3")}");
+                Console.WriteLine(info[i].ToString(i));
             }
+            Console.WriteLine(info[info.Count-1].ToStringWithoutGeneratedPart(info.Count-1));
             Console.WriteLine("|_______||________|_______|_______||_______|_______|_________|_________");
             Console.WriteLine($"Min:\nX = {((_max + _min) / 2).ToString("F5")} +- {_delta.ToString("F3")}\nF(x) = {Function((_max + _min) / 2).ToString("F5")}");
         }

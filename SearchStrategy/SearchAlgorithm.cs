@@ -5,7 +5,8 @@ namespace SearchStrategy
     public enum Algoritms
     {
         Passive,
-        Dichotomy
+        Dichotomy,
+        RandomSearch
     }
     class SearchAlgorithm : ISearchProperties
     {
@@ -41,9 +42,17 @@ namespace SearchStrategy
                 case Algoritms.Dichotomy:
                     _algorithm = new Dichotomy(_searchProperties);
                     break;
+                case Algoritms.RandomSearch:
+                    _algorithm = new RandomSearch(_searchProperties);
+                    break;
             }
         }
 
+        public void SetMainFunction(Func<double, double> function)
+        {
+            _algorithm.SetMainFunction(function);
+        }
+        
         public void Search()
         {
             _algorithm.Start();
