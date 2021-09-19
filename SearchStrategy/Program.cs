@@ -29,8 +29,18 @@ namespace SearchStrategy
             algorithm.Search();
             Console.WriteLine("\n\t\t\t\tRandom Search on Multimodal Function");
             algorithm.ShowProcess();
+            //-------------------------Simulated Annealing
+            Console.WriteLine();
+            algorithm.SetAlgoritmType(Algoritms.SimulatedAnnealing);
+            algorithm.Search();
+            Console.WriteLine("\n\t\t\t\tSimulated Annealing on Unimodal Function");
+            algorithm.ShowProcess();
+            algorithm.SetMainFunction(MultimodalFunction);
+            algorithm.Search();
+            Console.WriteLine("\n\t\t\t\tSimulated Annealing on Multimodal Function");
+            algorithm.ShowProcess();
 
-            
+
         }
 
         static double Function(double x)

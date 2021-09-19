@@ -7,7 +7,8 @@ namespace SearchStrategy
     {
         Passive,
         Dichotomy,
-        RandomSearch
+        RandomSearch,
+        SimulatedAnnealing
     }
     class SearchAlgorithm : ISearchProperties
     {
@@ -45,6 +46,9 @@ namespace SearchStrategy
                     break;
                 case Algoritms.RandomSearch:
                     _algorithm = new RandomSearch(_searchProperties);
+                    break;
+                case Algoritms.SimulatedAnnealing:
+                    _algorithm = new SimulatedAnnealing(_searchProperties);
                     break;
             }
         }
